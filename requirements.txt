@@ -1,0 +1,5 @@
+flask
+kubernetes
+flask-restful
+flask-jsonpify
+requests
