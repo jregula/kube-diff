@@ -4,19 +4,13 @@
 from kube_config_load import load_config
 
 def get_kube_env_state(func_load_config, select_env_context,ns):
-
-
     v1_client = func_load_config(select_env_context)["v1"]
-
     ret = v1_client.list_namespaced_deployment(namespace=ns,watch=False,pretty=True)
-    #print (ret.items[0].spec.template.spec.node_selector)
     result = []
+    
     for i in ret.items:
         deployment = i.metadata.name
         image = i.spec.template.spec.containers[0].image
-        # image = i.spec.template.spec.containers[0].image.replace("acr_name.azurecr.io/", "")
-        image_name = image[0]
-        # image_tag = image[1]
         replicas = i.spec.replicas
 
         if i.spec.template.spec.tolerations is not None:

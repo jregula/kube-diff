@@ -1,5 +1,5 @@
 # base file for getting configuration and namespaces sorted
-
+import os
 from kubernetes import client, config
 
 # maybe switch to a mapping of environments to contexts to make URL more user friendly
@@ -9,9 +9,9 @@ contexts = {
     "pre" : "",
     "pro" :""
 }
+kubeconfig_file = os.environ['KUBECONFIG']
 
-kubeconfig_file = "~/.kube/config"
-#kubeconfig_file = "/config/kubeconfig.yaml"
+#kubeconfig_file = "~/.kube/config"
 
 # loads kube config file and adds the various apis
 def load_config(select_env_context):
