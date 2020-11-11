@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.microservice }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.microservice }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.microservice }}
+    spec:
+      containers:
+      - name: {{ .Values.microservice }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - name: {{ .Values.microservice }}
+            containerPort: 8080
+            protocol: TCP
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+      volumes:
+      - name: config
+        secret:
+          secretName: kubeconfigread

@@ -1,0 +1,7 @@
+image:
+  repository: jorgeregula/kube-diff
+  tag: beta0.0.1
+  pullPolicy: Always
+
+microservice: kubediff
+namespace: default

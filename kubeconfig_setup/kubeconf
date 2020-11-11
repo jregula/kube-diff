@@ -1,0 +1,29 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: $CERT_AUTHORITY_DATA
+    server: $SERVER
+  name: $NAME
+- cluster:
+    certificate-authority-data: $CERT_AUTHORITY_DATA2
+    server: $SERVER2
+  name: $NAME2
+contexts:
+- context:
+    cluster: $NAME
+    user: $NAME
+  name: $NAME
+- context:
+    cluster: $NAME2
+    user: $NAME2
+  name: $NAME2
+current-context: $NAME
+kind: Config
+preferences: {}
+users:
+- name: $NAME
+  user:
+    token: $SECRET
+- name: $NAME2
+  user:
+    token $SECRET2
