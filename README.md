@@ -27,7 +27,9 @@ http://0.0.0.0:8080/images/minikube-default/minikube2-default
 {
   "diff": "Diff detected. The following images exist in the Context minikube with Namespace default and not in the Context minikube2 with Namespace default.", 
   "message": [
-    "nginx:1-alpine"
+    "nginx:1-alpine",
+    "microservice-a:0.0.2",
+    "microservice-b:0.1.2"
   ]
 }
 ```
