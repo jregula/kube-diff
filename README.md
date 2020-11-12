@@ -1,10 +1,12 @@
 # kube-diff
 
-A Kubernetes tool aimed at establishing consistency across clusters. The basic idea is to compare configuration from one Cluster to another. The first use case is a comparison of images between environments. In environments where you have lots of microservices, it's hard to keep track of what you have. Using this tool, you should be able to see the difference.
+A Kubernetes tool aimed at establishing consistency across clusters. The basic idea is to compare configuration from one Kubernetes Cluster to another. The first use case is an API that compares images between Clusters/Namespaces. 
+
+In environments where you have lots of microservices and configuration, it's hard to be able to visualise the difference between them. Using this tool, you should be able to see quite clearly the difference (starting with images) and what would need to be promoted or changed to achieve consistency.
 
 ## Usage
 
-When Port Forwarding http://0.0.0.0:8080/ you should see an API with basic use instructions:
+Currently, I have not included an Ingress in the Helm Chart, so to access kube-diff you will have to port-forward. When Port Forwarding to http://0.0.0.0:8080/ you should see an API with basic use instructions:
 
 ```json
 {
@@ -16,7 +18,7 @@ When Port Forwarding http://0.0.0.0:8080/ you should see an API with basic use i
 To compare images from one Kubernetes Context and Namespace to another, use the following URL
 http://0.0.0.0:8080/images/context_a-namespace_a/context_b-namespace-b
 
-For example the following URL in my local Minikube environment:
+The kubeconfig file in kube-diff will reference Kubernetes Contexts and should have access to various Namespaces. You will need to refer to these Contexts and Namespaces in the URL. For example, I have deployed this Helm Chart in my local Minikube environment with the following URL:
 
 http://0.0.0.0:8080/images/minikube-default/minikube2-default
 
@@ -32,13 +34,13 @@ http://0.0.0.0:8080/images/minikube-default/minikube2-default
 
 ## Prerequisites 
 
-- Create a Secret with the kubeconfig file for the Multiple Contexts
+- Create a Secret with a kubeconfig file with access to the Contexts (Kubernetes clusters) you want to compare
 - Kubectl
 - Helm
 
 ## How to create Secret
 
-You can generate the secret with your current kubeconfig, although this approach is not recommended.
+You can generate the secret with your current kubeconfig, although this approach is not recommended as it is potentially overly permissive.
 
 ```bash
 
@@ -77,7 +79,7 @@ You can use the kubeconfig from ./kubeconfig_setup/kubeconf to start with and pa
 kubectl create secret generic kubeconfigread --from-file=kubeconfig.yaml=<filename>
 ```
 
-see detailed guide for creating kubeconfig file here
+see detailed guide for creating kubeconfig file here if you wish to go about this in a different way
 http://docs.shippable.com/deploy/tutorial/create-kubeconfig-for-self-hosted-kubernetes-cluster/
 
 ## Steps to Deploy and test kube-diff Beta
