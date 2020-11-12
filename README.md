@@ -38,7 +38,7 @@ http://0.0.0.0:8080/images/minikube-default/minikube2-default
 - Kubectl
 - Helm
 
-## How to create Secret
+## How to create the Secret
 
 You can generate the secret with your current kubeconfig, although this approach is not recommended as it is potentially overly permissive.
 
