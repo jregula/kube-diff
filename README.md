@@ -6,7 +6,7 @@ In environments where you have lots of microservices and configuration, it's har
 
 ## Usage
 
-Currently, I have not included an Ingress in the Helm Chart, so to access kube-diff you will have to port-forward. When Port Forwarding to http://0.0.0.0:8080/ you should see an API with basic use instructions:
+ To access kube-diff you can port-forward or enable the ingress. When Port Forwarding to http://0.0.0.0:8080/ you should see an API with basic use instructions:
 
 ```json
 {
@@ -97,7 +97,8 @@ kubectl port-forward <pod_name> 8080:8080
 
 ## Future Functionality and Plans
 
-- Add an Ingress
+- Improve Ingress compatibility
+- Add more comparison points
 
 ## Contributing
 Pull requests are welcome.

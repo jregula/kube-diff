@@ -3,5 +3,14 @@ image:
   tag: beta0.0.1
   pullPolicy: Always
 
+ingress:
+  enabled: false
+#  hostname:
+#  path:
+#  pathType:
+  # annotations:
+  #   kubernetes.io/ingress.class: nginx
+
+
 microservice: kubediff
 namespace: default
