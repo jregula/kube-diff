@@ -54,17 +54,17 @@ If you're comparing 2 or more Clusters you will need to repeat the process below
 
 
 ```bash
-#Select the Context
+# Select the Context
 kubectl config use-context <CONTEXT_CLUSTER_1>
 
-#Create Service Account, Clusterrole, Clusterrolebinding
+# Create Service Account, Clusterrole, Clusterrolebinding
 kubectl apply -f kubeconfig_setup/sa-role-binding.yaml
 
-#Retrieve the token generated from the Service Account's Secret
+# Retrieve the token generated from the Service Account's Secret
 SECRET=$(kubectl get sa kubeconfigtoken -o=jsonpath='{.secrets[*].name}')
 TOKEN=$(kubectl get secret $SECRET -o 'go-template={{index .data "token"}}' | base64 -D)
 
-#Retrieve values for Cert Authority Data, Server and Name of Cluster
+# Retrieve values for Cert Authority Data, Server and Name of Cluster
 CERT_AUTHORITY_DATA=$(kubectl config view --flatten --minify -o jsonpath='{.clusters[*].cluster.certificate-authority-data}')
 SERVER=$(kubectl config view --flatten --minify -o jsonpath='{.clusters[*].cluster.server}')
 NAME=$(kubectl config view --flatten --minify -o jsonpath='{.clusters[*].name}')
@@ -87,10 +87,10 @@ http://docs.shippable.com/deploy/tutorial/create-kubeconfig-for-self-hosted-kube
 
 ```bash
 
-#Deploy Helm Chart
+# Deploy Helm Chart
 helm upgrade --install kube-diff  ./helm -f ./helm/values.yaml
 
-#Port-forward
+# Port-forward
 kubectl port-forward <pod_name> 8080:8080
 
 ```
