@@ -101,6 +101,14 @@ kubectl port-forward <pod_name> 8080:8080
 
 - Improve Ingress compatibility
 - Add more comparison points
+- Add diff functionality between deployments in different clusters (react-diff-viewer)
+- Work on front end
+- Ammend APIs to use parameters
+- Refactor / simplify deployments.py, deployments_diff.py
+- Exceptions
+  - urllib3.exceptions.MaxRetryError
+  - kubernetes.config.config_exception.ConfigException (Expected object with name x)
+
 
 ## Contributing
 Pull requests are welcome.
