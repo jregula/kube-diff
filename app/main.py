@@ -4,6 +4,7 @@ from flask import Flask, jsonify
 from flask_restful import Resource, Api
 from deployments_diff import compare_images
 from get_namespaces import get_namespaces
+from get_deployment import get_namespaced_deployment
 
 app = Flask(__name__)
 api = Api(app)
@@ -33,10 +34,19 @@ class Namespaces(Resource):
 
         return jsonify(api)
 
+class Deployment(Resource):
+    def get(self, namespace="default",deployment_name="kubediff",kube_context="minikube"):
+
+        api = get_namespaced_deployment()
+
+        return jsonify(api)
+
 api.add_resource(Images, '/images/<env_a>-<ns_a>/<env_b>-<ns_b>')
 
 api.add_resource(Namespaces, '/<environment>/get-namespaces')
 api.add_resource(Default, '/')
+
+api.add_resource(Deployment, '/deployments/<deployment_name>/<namespace>/<kube_context>')
 
 
 if __name__ == '__main__':
