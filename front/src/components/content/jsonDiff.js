@@ -1,35 +1,43 @@
 import React, { PureComponent, useState, useEffect } from 'react'
-import ReactDiffViewer from 'react-diff-viewer'
-import useRequest from "../../modules/Requests"
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
+import useRequest from "../../modules/RequestsTest"
 
-    const newStyles = {
+function GetDeployment (context, namespace, deployment) {
 
-
+    const url = `http://localhost:8080/deployments/${context}/${namespace}/${deployment}`
+    const { items, isLoaded, error } = useRequest(url, context, namespace, deployment);
+    if (deployment == null) {
+      return "error";
     }
+    else if (error) {
+      return "error";
+    } 
+    else if (!items.deployment) {
+      return "error";
+    }
+    else if (items.deployment) {
+        return JSON.stringify(items.deployment, null, 2)
+
+}
+}
 
 
-function Diff () {
-      const { items, isLoaded, error } = useRequest(`http://localhost:8080/deployments/kubediff/default/minikube`);
-    if (error) {
-        return <div>Error: {error.message}</div>;
-      } else if (!items.deployment) {
-        return <div>Loading...</div>;
-      }
-      else if (items.deployment) {
+function Diff (props) {
+  const valueA = GetDeployment(props.contextA, props.namespaceA, props.deploymentA)
+  const valueB = GetDeployment(props.contextB, props.namespaceB, props.deploymentB)
+
         return <div>
           <ReactDiffViewer
-          oldValue={JSON.stringify(items.deployment, null, 2)}
-          newValue={JSON.stringify(items.deployment, null, 2)}
+          oldValue={valueA}
+          newValue={valueB}
           splitView={true}
           showDiffOnly={false}
-          styles={newStyles}
-          leftTitle="Context-A-Namespace-A-ObjectType"
-          rightTitle="Context-B-Namespace-B-ObjectType"
+          compareMethod={DiffMethod.WORDS}
+          leftTitle={props.contextA + "-" + props.namespaceA +  "-" + props.deploymentA}
+          rightTitle={props.contextB + "-" + props.namespaceB +  "-" + props.deploymentB}
           />
           </div>
         }
-      }
+      
 
 export default Diff;
-
-
