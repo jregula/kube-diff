@@ -17,12 +17,12 @@ import React, { Component, useState } from 'react'
 
  
 function App() {
-  const [contextA, setcontextA] = useState('minikube');
-  const [contextB, setcontextB] = useState('minikube');
-  const [namespaceA, setnamespaceA] = useState('ktest');
-  const [namespaceB, setnamespaceB] = useState('ktest');
-  const [deployA, setdeployA] = useState('busy');
-  const [deployB, setdeployB] = useState('busy');
+  const [contextA, setcontextA] = useState(null);
+  const [contextB, setcontextB] = useState(null);
+  const [namespaceA, setnamespaceA] = useState(null);
+  const [namespaceB, setnamespaceB] = useState(null);
+  const [deployA, setdeployA] = useState(null);
+  const [deployB, setdeployB] = useState(null);
 
 
   return (
@@ -30,6 +30,8 @@ function App() {
       <div className="header">
         <Dropdowns
         ContextA={(e, {value}) => setcontextA(value)}
+        ContextAA={contextA}
+        ContextBB={contextB}
         ContextB={(e, {value}) => setcontextB(value)}
         NamespaceA={(e, {value}) => setnamespaceA(value)}
         NamespaceB={(e, {value}) => setnamespaceB(value)}

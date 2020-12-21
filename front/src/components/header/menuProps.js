@@ -36,7 +36,6 @@ function MenuPropsTest(props) {
         value={objectList[0]}
 
         >
-        {console.log(objectList[0])}
         </Dropdown>
       
 

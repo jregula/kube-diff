@@ -1,15 +1,17 @@
 import React, { PureComponent, useState, useEffect } from 'react'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
-import useRequest from "../../modules/RequestsTest"
+import useRequestNamespace from "../../modules/requestsNamespaces"
 
 function GetDeployment (context, namespace, deployment) {
 
     const url = `http://localhost:8080/deployments/${context}/${namespace}/${deployment}`
-    const { items, isLoaded, error } = useRequest(url, context, namespace, deployment);
-    if (deployment == null) {
-      return "error";
-    }
-    else if (error) {
+    const baseUrl = `http://localhost:8080/deployments`
+
+    // const baseUrl="http://localhost:8080/deployments?context=minikube&namespace=kdevelopment&deployment=nginx"
+    const { items, isLoaded, error } = useRequestNamespace(baseUrl, `?context=${context}&namespace=${namespace}&deployment=`, deployment);
+
+    // const { items, isLoaded, error } = useRequest(url, context, namespace, deployment);
+    if (error) {
       return "error";
     } 
     else if (!items.deployment) {
