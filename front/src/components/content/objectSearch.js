@@ -7,10 +7,7 @@ import MenuPropsObjects from '../header/menuPropsObjects'
 function KubernetesObjectSearch(props) {
     
   const urlBase="http://localhost:8080"
-  // const urlA="http://localhost:8080/list-deployments/" + props.namespaceA + "/" + props.contextA
 
-  // const urlB="http://localhost:8080/list-deployments/" + props.namespaceB + "/"  + props.contextB 
-  // http://localhost:8080/list-deployments?context=minikube&namespace=ktest
   return (
     
     <Menu vertical style={{alignItems: "center", padding: "10px"}}>
@@ -34,13 +31,6 @@ function KubernetesObjectSearch(props) {
         objectParsed="deployments" 
         objectType="Deployment B"
         />
-        {/*<MenuPropsTest 
-        objectChange={props.DeploymentA} 
-        url={urlA} 
-        objectParsed="deployments" 
-        objectType="Deployment A"
-        />*/}
-        {/*<MenuPropsTest objectChange={props.DeploymentB} url={urlB} objectParsed="deployments" objectType="Deployment B"/>*/}
   </Menu>
 
   )

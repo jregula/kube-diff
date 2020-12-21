@@ -4,6 +4,11 @@ A Kubernetes tool aimed at establishing consistency across clusters. The basic i
 
 In environments where you have lots of microservices and configuration, it's hard to be able to visualise the difference between them. Using this tool, you should be able to see quite clearly what the difference is between them (starting with images) and what would need to be promoted or changed to achieve consistency.
 
+## Preview Functionality
+
+❮img src="images/objectComparison.png" width="100" height="100" ❯
+
+
 ## Usage
 
  To access kube-diff you can port-forward or enable the ingress. When Port Forwarding to http://0.0.0.0:8080/ you should see an API with basic use instructions:

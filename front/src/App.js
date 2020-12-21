@@ -46,10 +46,8 @@ function App() {
 
       <div className="content">
           <Route exact path="/">
-          jsonDiff.js (Diff) has a dependency on objectSearch.js (KubernetesObjectSearch). 
-          jsonDiff should not execute until objectSearch is resolved
-          Rename components and filenames
-          Dependencies and reloads needed for Fetch
+          Work out how to use Requests properly
+          DRY for Requests and MenuObject
           </Route>
           <Route exact path="/deployments">
           <Diff
