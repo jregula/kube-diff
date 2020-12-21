@@ -6,7 +6,7 @@ In environments where you have lots of microservices and configuration, it's har
 
 ## Preview Functionality
 
-❮img src="images/objectComparison.png" width="100" height="100" ❯
+<img src="images/objectComparison.png"  >
 
 
 ## Usage
