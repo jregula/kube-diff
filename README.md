@@ -6,7 +6,9 @@ In environments where you have lots of microservices and configuration, it's har
 
 ## Preview Functionality
 
-❮img src="images/objectComparison.png" width="100" height="100" ❯
+As well as working on image comparison, I want to add functionality to compare kubernetes objects. 
+
+<img src="images/objectComparison.png"  >
 
 
 ## Usage
