@@ -1,30 +1,26 @@
 import React, { Component, useState } from 'react'
 import { Dropdown, Menu, Divider, Grid, Segment } from 'semantic-ui-react'
-import useRequest from "../../modules/Requests"
+import useRequest from "../../modules/requestsGeneric"
+
+function createOptions(items, objectParsed){
+    const objectList = items[objectParsed].map((objectInMap) => {
+    return {
+      key: objectInMap,
+      text: objectInMap, 
+      value: objectInMap
+    }
+  }
+  );
+  return objectList
+}
+
 
 function MenuPropsTest(props) {
-
-  const { items, isLoaded, error } = useRequest(props.url);
-  console.log(props.url)
-  if (error) {
-    console.log(error)
-    return <div>Error: {error.message}</div>;
-  } else if (!items[props.objectParsed]) {
-    return <div>Loading...</div>;
-  }
-
-    else if (items[props.objectParsed]) {
-
-    const objectList = items[props.objectParsed].map((objectInMap) => {
-      return {
-        key: objectInMap,
-        text: objectInMap, 
-        value: objectInMap
-      }
-    }
-    );
+  
+  const { items, isLoaded, error, updateUrl } = useRequest(props.url, props.initialParams, props.skip);
 
   return (
+    
     
       <Dropdown
         button
@@ -32,12 +28,15 @@ function MenuPropsTest(props) {
         labeled
         search
         placeholder={'Select ' + props.objectType}
-        options={objectList}
+        options={!items[props.objectParsed] ?  []  : createOptions(items,props.objectParsed)}
         onChange={props.objectChange}
-      />
+      >
+      
+      </Dropdown>
+      
 
   );
-    }
+    
 }
 
 export default MenuPropsTest;

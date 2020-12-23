@@ -1,8 +1,6 @@
 import { Menu } from 'semantic-ui-react'
-import MenuPropsTest from '../header/menuProps'
 
-import MenuPropsObjects from '../header/menuPropsObjects'
-
+import MenuPropsTest from '../header/menuPropsTest'
 
 function KubernetesObjectSearch(props) {
     
@@ -11,25 +9,22 @@ function KubernetesObjectSearch(props) {
   return (
     
     <Menu vertical style={{alignItems: "center", padding: "10px"}}>
-        <MenuPropsObjects 
+
+        <MenuPropsTest 
         objectChange={props.DeploymentA} 
-        url={urlBase + "/list-deployments"}
-        paramkey="?context="
-        params={props.contextA} 
-        paramkey1="&namespace="
-        params1={props.namespaceA} 
+        url={`http://localhost:8080/list-deployments?`} 
         objectParsed="deployments" 
         objectType="Deployment A"
+        initialParams={{context: props.contextA, namespace: props.namespaceA}}
+        skip={props.namespaceA === null || props.contextA === null  ? true : false}
         />
-        <MenuPropsObjects 
+        <MenuPropsTest 
         objectChange={props.DeploymentB} 
-        url={urlBase + "/list-deployments"}
-        paramkey="?context="
-        params={props.contextB} 
-        paramkey1="&namespace="
-        params1={props.namespaceB} 
+        url={`http://localhost:8080/list-deployments?`} 
         objectParsed="deployments" 
         objectType="Deployment B"
+        initialParams={{context: props.contextB, namespace: props.namespaceB}}
+        skip={props.namespaceB === null || props.contextB === null  ? true : false}
         />
   </Menu>
 

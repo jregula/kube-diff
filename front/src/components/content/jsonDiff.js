@@ -33,7 +33,7 @@ function Diff (props) {
           oldValue={valueA}
           newValue={valueB}
           splitView={true}
-          showDiffOnly={false}
+          showDiffOnly={true}
           compareMethod={DiffMethod.WORDS}
           leftTitle={props.contextA + "-" + props.namespaceA +  "-" + props.deploymentA}
           rightTitle={props.contextB + "-" + props.namespaceB +  "-" + props.deploymentB}

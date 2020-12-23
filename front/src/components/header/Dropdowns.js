@@ -1,12 +1,9 @@
-import MenuProps from './menuProps'
 import { Menu } from 'semantic-ui-react'
 
 import MenuPropsTest from './menuPropsTest'
-import MenuPropsNamespaces from './menuPropsNamespaces'
 
 function Dropdowns(props) {
     const urlBase = "http://localhost:8080"
-
 
     return(
     <Menu style={{alignItems: "center", padding: "10px"}}>
@@ -15,15 +12,17 @@ function Dropdowns(props) {
         objectChange={props.ContextA} 
         url='http://localhost:8080/get-contexts' 
         objectParsed="contexts" 
-        objectType="Contexts A"/>
-        
-        <MenuPropsNamespaces 
+        objectType="Contexts A"
+        initialParams={{}}
+        />
+
+        <MenuPropsTest 
         objectChange={props.NamespaceA} 
-        url={urlBase + "/get-namespaces"}
-        paramkey="?context="
-        params={props.ContextAA} 
+        url={'http://localhost:8080/get-namespaces?' } 
         objectParsed="namespaces" 
-        objectType="Namespace A"
+        objectType="Namespace AA"
+        skip={props.ContextAA === null ? true : false}
+        initialParams={{context: props.ContextAA}}
         />
 
         <div style={{
@@ -38,14 +37,15 @@ function Dropdowns(props) {
         url='http://localhost:8080/get-contexts' 
         objectParsed="contexts" 
         objectType="Contexts B"
+        initialParams={{}}
         />
-        <MenuPropsNamespaces 
+        <MenuPropsTest 
         objectChange={props.NamespaceB} 
-        url={urlBase + "/get-namespaces"}
-        paramkey="?context="
-        params={props.ContextBB} 
+        url={'http://localhost:8080/get-namespaces?' } 
         objectParsed="namespaces" 
         objectType="Namespace B"
+        skip={props.ContextBB === null ? true : false}
+        initialParams={{context: props.ContextBB}}
         />
   </Menu>
     )

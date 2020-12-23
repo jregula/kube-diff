@@ -48,6 +48,7 @@ function App() {
           <Route exact path="/">
           Work out how to use Requests properly
           DRY for Requests and MenuObject
+          Add refresh button
           </Route>
           <Route exact path="/deployments">
           <Diff
