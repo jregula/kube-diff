@@ -17,7 +17,7 @@ const useRequest = (initialUrl,initialParams, skip = false) => {
 
     const fetchData = async () => {
       if (skip) return
-      console.log(JSON.stringify(initialParams))
+      // console.log(JSON.stringify(initialParams))
       const response = await fetch(`${url}${queryString}`)
       const result = await response.json()
       if (response.ok) {
@@ -31,10 +31,10 @@ const useRequest = (initialUrl,initialParams, skip = false) => {
       }
       fetchData()
     
-    },[url, skip])
+    },[url, skip, queryString])
 
 
-            return  {items, isLoaded, error, updateUrl} ;
+            return  {items, isLoaded, error, } ;
 
     
        

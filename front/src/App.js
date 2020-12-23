@@ -46,8 +46,8 @@ function App() {
 
       <div className="content">
           <Route exact path="/">
-          Work out how to use Requests properly
-          DRY for Requests and MenuObject
+          Get rid of requestsNamespaces
+
           Add refresh button
           </Route>
           <Route exact path="/deployments">
