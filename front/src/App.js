@@ -49,7 +49,6 @@ function App() {
 
       <div className="content">
           <Route exact path="/">
-          Add links and push state
           Add home Screen Option
           Add image comparison
           Add refresh button
