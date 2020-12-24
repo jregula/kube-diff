@@ -1,0 +1,1 @@
+// const url = `http://localhost:8080/images?namespace_a=kdevelopment&context_a=minikube&namespace_b=ktest&context_b=minikube`

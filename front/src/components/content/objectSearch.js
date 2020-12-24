@@ -1,26 +1,24 @@
 import { Menu } from 'semantic-ui-react'
 
-import MenuPropsTest from '../header/menuPropsTest'
+import DropdownMenu from '../../modules/dropdownMenu'
 
 function KubernetesObjectSearch(props) {
     
-  const urlBase="http://localhost:8080"
-
   return (
     
     <Menu vertical style={{alignItems: "center", padding: "10px"}}>
 
-        <MenuPropsTest 
+        <DropdownMenu 
         objectChange={props.DeploymentA} 
-        url={`http://localhost:8080/list-deployments?`} 
+        url={`${props.urlBase}/list-deployments?`} 
         objectParsed="deployments" 
         objectType="Deployment A"
         initialParams={{context: props.contextA, namespace: props.namespaceA}}
         skip={props.namespaceA === null || props.contextA === null  ? true : false}
         />
-        <MenuPropsTest 
+        <DropdownMenu 
         objectChange={props.DeploymentB} 
-        url={`http://localhost:8080/list-deployments?`} 
+        url={`${props.urlBase}/list-deployments?`} 
         objectParsed="deployments" 
         objectType="Deployment B"
         initialParams={{context: props.contextB, namespace: props.namespaceB}}

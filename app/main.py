@@ -13,11 +13,12 @@ api = Api(app)
 
 
 class Images(Resource):
-    def get(self,env_a,env_b, ns_a, ns_b):
-        environment_comparison = compare_images(env_a,env_b,ns_a, ns_b)
+    def get(self):
+        environment_comparison = compare_images()
         api = {
-            "message": environment_comparison["api_response"],
-            "diff": environment_comparison["deployment_message"]
+            "images": environment_comparison["api_response"],
+            "diffMessage": environment_comparison["deployment_message"],
+            "metadata": environment_comparison["compare_images_info"]
             }
         return jsonify(api)
 
@@ -50,7 +51,7 @@ class Deployment(Resource):
         return jsonify(api)
 
 
-api.add_resource(Images, '/images/<env_a>-<ns_a>/<env_b>-<ns_b>')
+api.add_resource(Images, '/images')
 api.add_resource(Namespaces, '/get-namespaces')
 api.add_resource(Contexts, '/get-contexts')
 api.add_resource(List_Deployments, '/list-deployments')

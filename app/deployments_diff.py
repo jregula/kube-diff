@@ -1,5 +1,7 @@
 from deployments import get_kube_env_state
 from kube_config_load import load_config
+from flask_restful import reqparse
+
 
 def load_images(env,ns):
     enviroment = get_kube_env_state(load_config, env, ns)
@@ -15,10 +17,23 @@ def deployment_diff(env_deployment_list_a,env_deployment_list_b):
             diff_deployment_list.append(i)
     return diff_deployment_list
 
-def compare_images(env_a, env_b,ns_a, ns_b):
+def compare_images():
+    parser = reqparse.RequestParser()
+    parser.add_argument("namespace_a")
+    parser.add_argument("context_a")
+    parser.add_argument("namespace_b")
+    parser.add_argument("context_b")
+    args = parser.parse_args()
+
+    env_a = args["context_a"]
+    ns_a = args["namespace_a"]
+    env_b = args["context_b"]
+    ns_b = args["namespace_b"]
 
     env_a_images_list = load_images(env_a,ns_a)
     env_b_images_list = load_images(env_b,ns_b)
+    compare_images_info = {"origin" : {"context" : env_a,"namspace" : ns_a},"destination" : {"context" : env_b,"namspace" : ns_b}}
+            
     if env_a_images_list == env_b_images_list:
         api_response = "There is no diff in images"
         deployment_message = "No Image Upgrades detected in {0}.".format(env_a)
@@ -27,6 +42,7 @@ def compare_images(env_a, env_b,ns_a, ns_b):
         deployment_message = "Diff detected. The following images exist in the Context {0} with Namespace {2} and not in the Context {1} with Namespace {3}.".format(env_a, env_b,ns_a,ns_b)
     response = {
         "api_response" : api_response,
-        "deployment_message" : deployment_message
+        "deployment_message" : deployment_message,
+        "compare_images_info": compare_images_info
         }
     return response

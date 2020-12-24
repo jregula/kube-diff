@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react'
 import { Dropdown, Menu, Divider, Grid, Segment } from 'semantic-ui-react'
-import useRequest from "../../modules/requestsGeneric"
+import useRequest from "./requestsGeneric"
 
 function createOptions(items, objectParsed){
     const objectList = items[objectParsed].map((objectInMap) => {
@@ -15,7 +15,7 @@ function createOptions(items, objectParsed){
 }
 
 
-function MenuPropsTest(props) {
+function DropdownMenu(props) {
   
   const { items, isLoaded, error, updateUrl } = useRequest(props.url, props.initialParams, props.skip);
 
@@ -39,4 +39,4 @@ function MenuPropsTest(props) {
     
 }
 
-export default MenuPropsTest;
+export default DropdownMenu;

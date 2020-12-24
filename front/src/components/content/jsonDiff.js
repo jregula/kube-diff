@@ -2,10 +2,9 @@ import React, { PureComponent, useState, useEffect } from 'react'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 import useRequest from "../../modules/requestsGeneric"
 
-function GetDeployment (context, namespace, deployment) {
+function GetDeployment (context, namespace, deployment, urlBase) {
 
-    const baseUrl = `http://localhost:8080/deployments`
-    const url = `http://localhost:8080/deployments?`
+    const url = `${urlBase}/deployments?`
     const skip = (namespace === null || context === null || deployment === null  ? true : false)
     const { items, isLoaded, error, updateUrl } = useRequest(
       url, 
@@ -31,8 +30,9 @@ function GetDeployment (context, namespace, deployment) {
 
 
 function Diff (props) {
-  const valueA = GetDeployment(props.contextA, props.namespaceA, props.deploymentA)
-  const valueB = GetDeployment(props.contextB, props.namespaceB, props.deploymentB)
+  
+  const valueA = GetDeployment(props.contextA, props.namespaceA, props.deploymentA, props.urlBase)
+  const valueB = GetDeployment(props.contextB, props.namespaceB, props.deploymentB, props.urlBase)
 
         return <div>
           <ReactDiffViewer
@@ -41,8 +41,8 @@ function Diff (props) {
           splitView={true}
           showDiffOnly={true}
           compareMethod={DiffMethod.WORDS}
-          leftTitle={props.contextA + "-" + props.namespaceA +  "-" + props.deploymentA}
-          rightTitle={props.contextB + "-" + props.namespaceB +  "-" + props.deploymentB}
+          leftTitle={`${props.contextA}-${props.namespaceA}-${props.deploymentA}`}
+          rightTitle={`${props.contextB}-${props.namespaceB}-${props.deploymentB}`}
           />
           </div>
         }

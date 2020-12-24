@@ -1,4 +1,4 @@
-import Dropdowns from './components/header/Dropdowns'
+import ClusterSelectors from './components/header/ClusterSelectors'
 import Diff from './components/content/jsonDiff'
 import KubernetesObjectSearch from './components/content/objectSearch'
 import Sidebar from './components/sidebar/Sidebar'
@@ -15,8 +15,10 @@ import {
 } from "react-router-dom";
 import React, { Component, useState } from 'react'
 
+
  
 function App() {
+  const urlBase = 'http://localhost:3000/'
   const [contextA, setcontextA] = useState(null);
   const [contextB, setcontextB] = useState(null);
   const [namespaceA, setnamespaceA] = useState(null);
@@ -28,7 +30,8 @@ function App() {
   return (
     <div className="container">
       <div className="header">
-        <Dropdowns
+        <ClusterSelectors
+        urlBase={urlBase}
         ContextA={(e, {value}) => setcontextA(value)}
         ContextAA={contextA}
         ContextBB={contextB}
@@ -46,12 +49,17 @@ function App() {
 
       <div className="content">
           <Route exact path="/">
-          Get rid of requestsNamespaces
-
+          Add image comparison
+          Make K8s objects generic (not limited to deployments)
+          set URL based upon k8 services or see if you can merge k8s app in one
+          Improve error messaging, handling
+          Add links and push state
+          Add home Screen Option
           Add refresh button
           </Route>
           <Route exact path="/deployments">
           <Diff
+          urlBase={urlBase}
           contextA={contextA}
           contextB={contextB}
           namespaceA={namespaceA}
@@ -65,6 +73,7 @@ function App() {
         <Route exact path="/deployments">
 
         <KubernetesObjectSearch 
+          urlBase={urlBase}
           contextA={contextA}
           contextB={contextB}
           namespaceA={namespaceA}
@@ -72,6 +81,9 @@ function App() {
           DeploymentA={(e, {value}) => setdeployA(value)}
           DeploymentB={(e, {value}) => setdeployB(value)}
         />
+        </Route>
+        <Route exact path="/images">
+
         </Route>
 
         </div>
