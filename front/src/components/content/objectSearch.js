@@ -3,25 +3,26 @@ import { Menu } from 'semantic-ui-react'
 import DropdownMenu from '../../modules/dropdownMenu'
 
 function KubernetesObjectSearch(props) {
+  const { match: { params } } = props;
     
   return (
     
     <Menu vertical style={{alignItems: "center", padding: "10px"}}>
 
         <DropdownMenu 
-        objectChange={props.DeploymentA} 
-        url={`${props.urlBase}/list-deployments?`} 
-        objectParsed="deployments" 
-        objectType="Deployment A"
-        initialParams={{context: props.contextA, namespace: props.namespaceA}}
+        objectChange={props.ObjectA} 
+        url={`${props.urlBase}/list-objects?`} 
+        objectParsed={params.object}
+        objectType={`${params.object} A`}
+        initialParams={{context: props.contextA, namespace: props.namespaceA, kubernetes_object: params.object}}
         skip={props.namespaceA === null || props.contextA === null  ? true : false}
         />
         <DropdownMenu 
-        objectChange={props.DeploymentB} 
-        url={`${props.urlBase}/list-deployments?`} 
-        objectParsed="deployments" 
-        objectType="Deployment B"
-        initialParams={{context: props.contextB, namespace: props.namespaceB}}
+        objectChange={props.ObjectB} 
+        url={`${props.urlBase}/list-objects?`} 
+        objectParsed={params.object}
+        objectType={`${params.object} B`}
+        initialParams={{context: props.contextB, namespace: props.namespaceB, kubernetes_object: params.object}}
         skip={props.namespaceB === null || props.contextB === null  ? true : false}
         />
   </Menu>

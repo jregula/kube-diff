@@ -2,16 +2,17 @@ import React, { PureComponent, useState, useEffect } from 'react'
 import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer'
 import useRequest from "../../modules/requestsGeneric"
 
-function GetDeployment (context, namespace, deployment, urlBase) {
+function GetObject (context, namespace, object, urlBase, kubernetesObject) {
 
-    const url = `${urlBase}/deployments?`
-    const skip = (namespace === null || context === null || deployment === null  ? true : false)
+    const url = `${urlBase}/objects?`
+    const skip = (namespace === null || context === null || object === null  ? true : false)
     const { items, isLoaded, error, updateUrl } = useRequest(
       url, 
       {
         context: context, 
         namespace: namespace,
-        deployment: deployment
+        object_name: object,
+        kubernetes_object: kubernetesObject
       },
       skip
       );
@@ -19,20 +20,22 @@ function GetDeployment (context, namespace, deployment, urlBase) {
     if (error) {
       return "error";
     } 
-    else if (!items.deployment) {
+    else if (!items[kubernetesObject]) {
       return "error";
     }
-    else if (items.deployment) {
-        return JSON.stringify(items.deployment, null, 2)
+    else if (items[kubernetesObject]) {
+        return JSON.stringify(items[kubernetesObject], null, 2)
 
 }
 }
 
 
 function Diff (props) {
+  const { match: { params } } = props;
   
-  const valueA = GetDeployment(props.contextA, props.namespaceA, props.deploymentA, props.urlBase)
-  const valueB = GetDeployment(props.contextB, props.namespaceB, props.deploymentB, props.urlBase)
+  const valueA = GetObject(props.contextA, props.namespaceA, props.ObjectA, props.urlBase, params.object)
+  console.log(valueA)
+  const valueB = GetObject(props.contextB, props.namespaceB, props.ObjectB, props.urlBase, params.object)
 
         return <div>
           <ReactDiffViewer
@@ -41,8 +44,8 @@ function Diff (props) {
           splitView={true}
           showDiffOnly={true}
           compareMethod={DiffMethod.WORDS}
-          leftTitle={`${props.contextA}-${props.namespaceA}-${props.deploymentA}`}
-          rightTitle={`${props.contextB}-${props.namespaceB}-${props.deploymentB}`}
+          leftTitle={`${props.contextA}-${props.namespaceA}-${props.ObjectA}`}
+          rightTitle={`${props.contextB}-${props.namespaceB}-${props.ObjectB}`}
           />
           </div>
         }

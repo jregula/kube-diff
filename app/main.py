@@ -4,9 +4,9 @@ from flask import Flask, jsonify
 from flask_restful import Resource, Api, reqparse
 from deployments_diff import compare_images
 from get_namespaces import get_namespaces
-from get_deployment import get_namespaced_deployment
+from get_object import get_namespaced_object
 from get_kube_contexts import get_contexts
-from list_deployments import list_deployments
+from list_objects import list_objects
 
 app = Flask(__name__)
 api = Api(app)
@@ -42,21 +42,21 @@ class Contexts(Resource):
 
 class List_Deployments(Resource):
     def get(self):
-        api = list_deployments()
+        api = list_objects()
         return jsonify(api)
 
-class Deployment(Resource):
+class Kube_Object(Resource):
     def get(self):
-        api = get_namespaced_deployment()
+        api = get_namespaced_object()
         return jsonify(api)
 
 
 api.add_resource(Images, '/images')
 api.add_resource(Namespaces, '/get-namespaces')
 api.add_resource(Contexts, '/get-contexts')
-api.add_resource(List_Deployments, '/list-deployments')
+api.add_resource(List_Deployments, '/list-objects')
 api.add_resource(Default, '/')
-api.add_resource(Deployment, '/deployments')
+api.add_resource(Kube_Object, '/objects')
 
 
 if __name__ == '__main__':

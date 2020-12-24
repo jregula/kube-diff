@@ -18,13 +18,13 @@ import React, { Component, useState } from 'react'
 
  
 function App() {
-  const urlBase = 'http://localhost:3000/'
+  const urlBase = 'http://localhost:8080/'
   const [contextA, setcontextA] = useState(null);
   const [contextB, setcontextB] = useState(null);
   const [namespaceA, setnamespaceA] = useState(null);
   const [namespaceB, setnamespaceB] = useState(null);
-  const [deployA, setdeployA] = useState(null);
-  const [deployB, setdeployB] = useState(null);
+  const [objectA, setobjectA] = useState(null);
+  const [objectB, setobjectB] = useState(null);
 
 
   return (
@@ -49,39 +49,47 @@ function App() {
 
       <div className="content">
           <Route exact path="/">
-          Add image comparison
-          Make K8s objects generic (not limited to deployments)
-          set URL based upon k8 services or see if you can merge k8s app in one
-          Improve error messaging, handling
           Add links and push state
           Add home Screen Option
+          Add image comparison
           Add refresh button
+          deploy K8s as single container
+          Improve error messaging, handling
           </Route>
-          <Route exact path="/deployments">
+          <Route 
+          exact path="/objects/:object"
+          render={(props) =>
           <Diff
           urlBase={urlBase}
           contextA={contextA}
           contextB={contextB}
           namespaceA={namespaceA}
           namespaceB={namespaceB}
-          deploymentA={deployA}
-          deploymentB={deployB}
+          ObjectA={objectA}
+          ObjectB={objectB}
+          {...props}
           />
-          </Route>
+          }
+          />
       </div>
         <div className="objects">
-        <Route exact path="/deployments">
-
+        <Route 
+        exact path="/objects/:object"
+        render={(props) =>
         <KubernetesObjectSearch 
           urlBase={urlBase}
           contextA={contextA}
           contextB={contextB}
           namespaceA={namespaceA}
           namespaceB={namespaceB}
-          DeploymentA={(e, {value}) => setdeployA(value)}
-          DeploymentB={(e, {value}) => setdeployB(value)}
+          ObjectA={(e, {value}) => setobjectA(value)}
+          ObjectB={(e, {value}) => setobjectB(value)}
+          {...props}
+        />}
+
         />
-        </Route>
+
+        
         <Route exact path="/images">
 
         </Route>
